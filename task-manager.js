@@ -111,7 +111,7 @@ function endLastSlot(task) {
 }
 
 function toDay(date) {
-  return date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+  return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 }
 
 function createFileName(day) {
@@ -138,6 +138,10 @@ function parseFile(file) {
 
 function setupCurrentDay(taskManager, file) {
   var data = parseFile(file);
+
+  if(!data) {
+    return;
+  }
 
   taskManager.tasks = data.tasks;
 
