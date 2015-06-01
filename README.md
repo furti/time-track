@@ -1,2 +1,2 @@
 # time-track
-Track you time
+Track your time
