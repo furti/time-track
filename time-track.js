@@ -42,6 +42,10 @@ function execute(command) {
     return taskManager.print(command.substring(5).trim());
   } else if (command === '?') {
     printHelp();
+  } else if (command === 'q') {
+    return false;
+  } else if (command === '?') {
+    printHelp();
   } else {
     console.log(chalk.red('Command not found!!'));
     printHelp();
@@ -56,6 +60,7 @@ function printHelp() {
   console.log(chalk.bold('stop <comment>') + ' Stop the current task. If a comment is specified it will be appended to the task name.');
   console.log(chalk.bold('stopall') + ' Stop all running tasks.');
   console.log(chalk.bold('print <yyy-mm-dd>') + ' Prints all tasks for the given day.');
+  console.log(chalk.bold('q') + ' Quit the application.');
 }
 
 doPrompt();
