@@ -40,6 +40,10 @@ function execute(command) {
     return taskManager.stopCurrentTask(command.substring(4).trim());
   } else if (command.indexOf('print') === 0) {
     return taskManager.print(command.substring(5).trim());
+  } else if (command === 'pause') {
+    return taskManager.pause();
+  } else if (command === 'resume') {
+    return taskManager.resume();
   } else if (command === '?') {
     printHelp();
   } else if (command === 'q') {

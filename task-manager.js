@@ -66,6 +66,35 @@ TaskManager.prototype.stopCurrentTask = function(comment) {
   return true;
 };
 
+/**
+ * End the current tasks last timeslot
+ */
+TaskManager.prototype.pause = function() {
+  if (this.currentTask) {
+    endLastSlot(this.currentTask);
+
+    persistTasks(this.file, this.tasks, this.currentTask);
+  }
+
+  return true;
+};
+
+/**
+ * End the current tasks last timeslot
+ */
+TaskManager.prototype.resume = function() {
+  if (this.currentTask) {
+    this.currentTask.times.push({
+      start: new Date()
+    });
+
+    persistTasks(this.file, this.tasks, this.currentTask);
+  }
+
+  return true;
+};
+
+
 TaskManager.prototype.stopAllTasks = function() {
   while (this.currentTask) {
     this.stopCurrentTask();
