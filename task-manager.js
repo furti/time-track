@@ -34,12 +34,17 @@ TaskManager.prototype.startNewTask = function(taskName) {
   return true;
 };
 
-TaskManager.prototype.stopCurrentTask = function() {
+TaskManager.prototype.stopCurrentTask = function(comment) {
   if (!this.currentTask) {
     return true;
   }
 
   endLastSlot(this.currentTask);
+
+  //add the comment to the taskname if specified
+  if (comment) {
+    this.currentTask.name += ' ' + comment;
+  }
 
   if (this.currentTask.prev) {
     //If we have a previous task we have to add another time slot
