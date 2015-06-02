@@ -139,7 +139,7 @@ function parseFile(file) {
 function setupCurrentDay(taskManager, file) {
   var data = parseFile(file);
 
-  if(!data) {
+  if (!data) {
     return;
   }
 
@@ -156,9 +156,21 @@ function setupCurrentDay(taskManager, file) {
 function calculateDuration(task) {
   var milliseconds = 0;
 
-  task.times.forEach(function(time) {
+  task.times.every(function(time) {
+    if (!time.end) {
+      milliseconds = -1;
+
+      return false;
+    }
+
     milliseconds += time.end.getTime() - time.start.getTime();
+
+    return true;
   });
+
+  if (milliseconds === -1) {
+    return 'Still running...';
+  }
 
   var overallMinutes = Math.round(milliseconds / 1000 / 60);
   var minutes = overallMinutes % 60;
