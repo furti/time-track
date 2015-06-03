@@ -32,41 +32,50 @@ function doPrompt() {
 /**
  * @returns true if we should prompt for another task. fals otherwise
  */
-function execute(command) {
-  if (command.indexOf('start') === 0) {
-    return taskManager.startNewTask(command.substring(5).trim());
-  } else if (command == 'stopall') {
-    return taskManager.stopAllTasks();
-  } else if (command.indexOf('stop') === 0) {
-    return taskManager.stopCurrentTask(command.substring(4).trim());
-  } else if (command.indexOf('print') === 0) {
-    return taskManager.print(command.substring(5).trim());
-  } else if (command.indexOf('export') === 0) {
-    return taskManager.export(command.substring(7).trim());
-  } else if (command === 'pause') {
-    return taskManager.pause();
-  } else if (command === 'resume') {
-    return taskManager.resume();
-  } else if (command === '?') {
-    printHelp();
-  } else if (command === 'q') {
-    return false;
-  } else if (command === '?') {
-    printHelp();
-  } else {
-    console.log(chalk.red('Command not found!!'));
-    printHelp();
-  }
+function execute(commandString) {
+  var command = findCommand(commandString);
 
-  return true;
+  if (!command) {
+    console.log(chalk.red('Command not found!!'));
+    return findCommand('?').f();
+  } else {
+    if (typeof command.f === 'function') {
+      return command.f();
+    } else {
+      return runOnTaskManager(command, commandString);
+    }
+  }
 }
 
-function printHelp() {
-  console.log(chalk.blue('Available Commands:'));
+function runOnTaskManager(command, commandString) {
+  var toCall = taskManager[command.f];
 
-  commands.forEach(function(command) {
-    console.log(chalk.green(command.schema) + ' ' + command.description);
-  });
+  if (!toCall) {
+    console.log(chalk.red('Function ' + commandString + ' does not exist on TaskManager!'));
+
+    return true;
+  }
+
+  var params;
+
+  if (command.paramRegex) {
+    var parsed = command.paramRegex.exec(commandString);
+    params = parsed ? parsed[1] : null;
+  }
+
+  return toCall.call(taskManager, params);
+}
+
+function findCommand(commandString) {
+  if (!commandString) {
+    return;
+  }
+
+  for (var index in commands) {
+    if (commands[index].matcher.test(commandString)) {
+      return commands[index];
+    }
+  }
 }
 
 doPrompt();
