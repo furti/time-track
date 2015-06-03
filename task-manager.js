@@ -27,7 +27,7 @@ TaskManager.prototype.startNewTask = function(taskName) {
 
   this.currentTask = newTask;
 
-  console.log(chalk.green('Current task is "' + chalk.bold(taskName)) + '"');
+  printTaskName(this.currentTask);
 
   persistTasks(this.file, this.tasks, this.currentTask);
 
@@ -55,7 +55,7 @@ TaskManager.prototype.stopCurrentTask = function(comment) {
 
     this.currentTask = prevTask;
 
-    console.log(chalk.green('Current task is "' + chalk.bold(this.currentTask.name)) + '"');
+    printTaskName(this.currentTask);
   } else {
     this.currentTask = null;
     console.log(chalk.red('No task is running!'));
@@ -72,6 +72,7 @@ TaskManager.prototype.stopCurrentTask = function(comment) {
 TaskManager.prototype.pause = function() {
   if (this.currentTask) {
     endLastSlot(this.currentTask);
+    this.currentTask.paused = true;
 
     persistTasks(this.file, this.tasks, this.currentTask);
   }
@@ -87,6 +88,8 @@ TaskManager.prototype.resume = function() {
     this.currentTask.times.push({
       start: new Date()
     });
+
+    this.currentTask.paused = false;
 
     persistTasks(this.file, this.tasks, this.currentTask);
   }
@@ -182,8 +185,7 @@ function setupCurrentDay(taskManager, file) {
   if (data.currentId) {
     taskManager.currentTask = taskManager.tasks[data.currentId - 1];
 
-    console.log(chalk.green('Current task is "' +
-      chalk.bold(taskManager.currentTask.name)) + '"');
+    printTaskName(taskManager.currentTask);
   }
 }
 
@@ -211,6 +213,16 @@ function calculateDuration(task) {
   var hours = (overallMinutes - minutes) / 60;
 
   return hours + 'h ' + minutes + 'min';
+}
+
+function printTaskName(task) {
+  var message = 'Current task: "' + chalk.green(task.name) + '"';
+
+  if (task.paused) {
+    message += chalk.red(' paused');
+  }
+
+  console.log(message);
 }
 
 module.exports = TaskManager;
