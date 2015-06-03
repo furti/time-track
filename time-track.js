@@ -60,11 +60,11 @@ function execute(command) {
 
 function printHelp() {
   console.log(chalk.blue('Available Commands:'));
-  console.log(chalk.bold('start <task name>') + ' Start a new task with the given name.');
-  console.log(chalk.bold('stop <comment>') + ' Stop the current task. If a comment is specified it will be appended to the task name.');
-  console.log(chalk.bold('stopall') + ' Stop all running tasks.');
-  console.log(chalk.bold('print <yyy-mm-dd>') + ' Prints all tasks for the given day.');
-  console.log(chalk.bold('q') + ' Quit the application.');
+  console.log(chalk.green('start <task name>') + ' Start a new task with the given name.');
+  console.log(chalk.green('stop <comment>') + ' Stop the current task. If a comment is specified it will be appended to the task name.');
+  console.log(chalk.green('stopall') + ' Stop all running tasks.');
+  console.log(chalk.green('print <yyy-mm-dd>') + ' Prints all tasks for the given day.');
+  console.log(chalk.green('q') + ' Quit the application.');
 }
 
 doPrompt();
