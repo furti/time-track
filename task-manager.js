@@ -74,6 +74,8 @@ TaskManager.prototype.pause = function() {
     endLastSlot(this.currentTask);
     this.currentTask.paused = true;
 
+    printTaskName(this.currentTask);
+
     persistTasks(this.file, this.tasks, this.currentTask);
   }
 
@@ -90,6 +92,8 @@ TaskManager.prototype.resume = function() {
     });
 
     this.currentTask.paused = false;
+
+    printTaskName(this.currentTask);
 
     persistTasks(this.file, this.tasks, this.currentTask);
   }
