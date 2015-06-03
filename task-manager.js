@@ -39,7 +39,11 @@ TaskManager.prototype.stopCurrentTask = function(comment) {
     return true;
   }
 
-  endLastSlot(this.currentTask);
+  if (this.currentTask.paused) {
+    this.currentTask.paused = false;
+  } else {
+    endLastSlot(this.currentTask);
+  }
 
   //add the comment to the taskname if specified
   if (comment) {
