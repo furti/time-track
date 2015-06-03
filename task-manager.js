@@ -156,7 +156,7 @@ function endLastSlot(task) {
 }
 
 function toDay(date) {
-  return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+  return date.getFullYear() + '-' + pad((date.getMonth() + 1)) + '-' + pad(date.getDate());
 }
 
 function createFileName(day) {
@@ -232,5 +232,13 @@ function printTaskName(task) {
 
   console.log(message);
 }
+
+function pad(number) {
+  if (number < 10) {
+    return '0' + number;
+  }
+  return number;
+}
+
 
 module.exports = TaskManager;
