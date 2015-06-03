@@ -2,7 +2,8 @@
 
 var prompt = require('prompt'),
   tm = require('./task-manager'),
-  chalk = require('chalk');
+  chalk = require('chalk'),
+  commands = require('./commands');
 
 var promptProps = {
   properties: {
@@ -40,6 +41,8 @@ function execute(command) {
     return taskManager.stopCurrentTask(command.substring(4).trim());
   } else if (command.indexOf('print') === 0) {
     return taskManager.print(command.substring(5).trim());
+  } else if (command.indexOf('export') === 0) {
+    return taskManager.export(command.substring(7).trim());
   } else if (command === 'pause') {
     return taskManager.pause();
   } else if (command === 'resume') {
@@ -60,11 +63,10 @@ function execute(command) {
 
 function printHelp() {
   console.log(chalk.blue('Available Commands:'));
-  console.log(chalk.green('start <task name>') + ' Start a new task with the given name.');
-  console.log(chalk.green('stop <comment>') + ' Stop the current task. If a comment is specified it will be appended to the task name.');
-  console.log(chalk.green('stopall') + ' Stop all running tasks.');
-  console.log(chalk.green('print <yyy-mm-dd>') + ' Prints all tasks for the given day.');
-  console.log(chalk.green('q') + ' Quit the application.');
+
+  commands.forEach(function(command) {
+    console.log(chalk.green(command.schema) + ' ' + command.description);
+  });
 }
 
 doPrompt();
