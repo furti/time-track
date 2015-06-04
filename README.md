@@ -77,3 +77,6 @@ A exporter is a module that is called with a list of tasks and does anything you
 Exporters should be installed globally. If they are not found check if the `NODE_PATH` environment variable contains the path where npm installs your global modules.
 
 It's easy to create a custom exporter. Create a node Module with the name `time-track-<exporter name>-exporter`. The exporter name is the name that is used in the export command. The module must export a functoin that takes a list of tasks as argument. See [Commandline Exporter](https://github.com/furti/time-track-commandline-exporter) for a example.
+
+###License
+Licensed under the [Apache 2.0 License](https://github.com/furti/time-track/blob/master/LICENSE)
