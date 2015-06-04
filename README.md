@@ -29,8 +29,8 @@ After you started the application you will be prompted for a command to run. Typ
 $ time-track
 prompt: Command (? for help):  ?
 Available Commands:
-start <task name> Start a new task with the given name.
-stop <comment> Stop the current task. If a comment is specified it will be appended to the task name.
+start <task description> Start a new task with the given description.
+stop <comment> Stop the current task. If a comment is specified it will be appended to the task description.
 stopall Stop all running tasks.
 pause Pause the acutal command so that it could be resumed later on.
 resume Resume the actual paused command.

@@ -4,8 +4,8 @@ module.exports = commands = [];
 
 //start
 commands.push({
-  schema: 'start <task name>',
-  description: 'Start a new task with the given name.',
+  schema: 'start <task description>',
+  description: 'Start a new task with the given description.',
   matcher: /^start .*$/,
   paramRegex: /^start (.*)$/,
   f: 'startNewTask'
@@ -14,7 +14,7 @@ commands.push({
 //stop
 commands.push({
   schema: 'stop <comment>',
-  description: 'Stop the current task. If a comment is specified it will be appended to the task name.',
+  description: 'Stop the current task. If a comment is specified it will be appended to the task description.',
   matcher: /^stop$|^stop .*$/,
   paramRegex: /^stop (.*)$/,
   f: 'stopCurrentTask'
