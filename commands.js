@@ -53,6 +53,15 @@ commands.push({
   f: 'print'
 });
 
+//export
+commands.push({
+  schema: 'export <yyyy-mm-dd> <exporter name>',
+  description: 'Export the given day with the specified exporter.',
+  matcher: /^export .{10} .*$/,
+  paramRegex: /^export (.{10}) (.*)$/,
+  f: 'exportTasks'
+});
+
 //quit
 commands.push({
   schema: 'q',

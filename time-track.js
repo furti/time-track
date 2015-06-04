@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 var prompt = require('prompt'),
-  tm = require('./task-manager'),
+  tm = require('./lib/task-manager'),
   chalk = require('chalk'),
   commands = require('./commands');
 
