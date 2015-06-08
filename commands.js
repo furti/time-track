@@ -80,9 +80,9 @@ commands.push({
 
 //quit
 commands.push({
-  schema: 'q',
+  schema: 'q, exit, quit',
   description: 'Quit the application.',
-  matcher: /^q$/,
+  matcher: /^q$|^exit$|^quit$/,
   f: function() {
     return false;
   }
