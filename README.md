@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/furti/time-track.svg?branch=master)](https://travis-ci.org/furti/time-track)
+
 # time-track
 A nodejs cli that helps you track your time.
 
