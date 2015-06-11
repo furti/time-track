@@ -2,7 +2,7 @@ var cP = require('../lib/command-parser');
 
 describe('test command-parser', function() {
   var taskManager = new TaskManagerMock();
-  var commandParser = new cP(taskManager);
+  var commandParser = new cP(taskManager, require('../commands'));
 
   afterEach(function() {
     taskManager.reset();
@@ -63,6 +63,13 @@ describe('test command-parser', function() {
     expect(taskManager.wasCalled('exportTasks', ['2015-01-01', 'someexporter'])).toBeTruthy();
     expect(taskManager.noMoreCalls()).toBeTruthy();
   });
+
+  it('should call merge command', function() {
+    commandParser.execute('merge 2015-01-01');
+
+    expect(taskManager.wasCalled('mergeTasks', ['2015-01-01'])).toBeTruthy();
+    expect(taskManager.noMoreCalls()).toBeTruthy();
+  });
 });
 
 function TaskManagerMock() {
@@ -99,6 +106,10 @@ TaskManagerMock.prototype.print = function(day) {
 
 TaskManagerMock.prototype.exportTasks = function(day, exporterName) {
   this.functionCalled('exportTasks', [day, exporterName]);
+};
+
+TaskManagerMock.prototype.mergeTasks = function(day) {
+  this.functionCalled('mergeTasks', [day]);
 };
 
 TaskManagerMock.prototype.reset = function() {

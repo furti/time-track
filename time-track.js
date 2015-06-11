@@ -29,7 +29,7 @@ var promptProps = {
 };
 
 var taskManager = new tm();
-var commandParser = new cP(taskManager);
+var commandParser = new cP(taskManager, require('./commands'));
 
 prompt.start();
 

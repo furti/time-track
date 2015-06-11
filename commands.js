@@ -16,7 +16,7 @@
 
 var chalk = require('chalk');
 
-module.exports = commands = [];
+var commands = [];
 
 //start
 commands.push({
@@ -113,3 +113,5 @@ commands.push({
     return true;
   }
 });
+
+module.exports = commands;
