@@ -16,27 +16,19 @@
  * limitations under the License.
  */
 
-var prompt = require('prompt'),
-  cP = require('./lib/command-parser'),
-  tm = require('./lib/task-manager');
-
-var promptProps = {
-  properties: {
-    command: {
-      message: 'Command (? for help)'
-    }
-  }
-};
+var cP = require('./lib/command-parser'),
+  tm = require('./lib/task-manager'),
+  uI = require('./lib/user-input');
 
 var taskManager = new tm();
 var commandParser = new cP(taskManager, require('./commands'));
+var userInput = new uI();
 
-prompt.start();
 
 function doPrompt() {
-  prompt.get(promptProps, function(err, result) {
-    if (result && result.command) {
-      if (!commandParser.execute(result.command)) {
+  userInput.nextLine('Command (? for help):').then(function(command) {
+    if (command && command.length > 0) {
+      if (!commandParser.execute(command)) {
         return;
       }
     }

@@ -21,7 +21,8 @@
   "homepage": "https://github.com/furti/time-track#readme",
   "dependencies": {
     "chalk": "^1.0.0",
-    "prompt": "^0.2.14"
+    "keypress": "^0.2.1",
+    "q": "^1.4.1"
   },
   "main": "./lib/time-track-utils.js",
   "devDependencies": {
