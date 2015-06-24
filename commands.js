@@ -78,16 +78,6 @@ commands.push({
   f: 'exportTasks'
 });
 
-//export
-commands.push({
-  schema: 'merge <yyyy-mm-dd>',
-  description: 'Start merging task of the given day.',
-  matcher: /^merge .{10}$/,
-  paramRegex: /^merge (.{10})$/,
-  f: 'mergeTasks'
-});
-
-
 //quit
 commands.push({
   schema: 'q, exit, quit',
