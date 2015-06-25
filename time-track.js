@@ -24,16 +24,24 @@ var taskManager = new tm();
 var commandParser = new cP(taskManager, require('./commands'));
 var userInput = new uI();
 
+//start listening for input
+process.stdin.resume();
 
 function doPrompt() {
   userInput.nextLine('Command (? for help):').then(function(command) {
     if (command && command.length > 0) {
-      if (!commandParser.execute(command)) {
-        return;
-      }
+      /**
+       * If the command is resolved can ask for another command.
+       * If it is rejected we exit the application
+       */
+      commandParser.execute(command).then(function() {
+        doPrompt();
+      }, function() {
+        process.exit(0);
+      });
+    } else {
+      doPrompt();
     }
-
-    doPrompt();
   });
 }
 
