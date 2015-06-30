@@ -1,4 +1,111 @@
-var cP = require('../lib/command-parser');
+var cP = require('../lib/command-parser'),
+  q = require('q');
+
+function compareArrays(arr1, arr2) {
+  if (!arr1) {
+    arr1 = [];
+  }
+
+  if (!arr2) {
+    arr2 = [];
+  }
+
+  var ret = true;
+
+  if (arr1.length === arr2.length) {
+    for (var index in arr1) {
+      if (arr1[index] !== arr2[index]) {
+        ret = false;
+        break;
+      }
+    }
+  } else {
+    ret = false;
+  }
+
+  if (!ret) {
+    console.log('expected params ');
+    console.log(arr1);
+    console.log('but were');
+    console.log(arr2);
+  }
+
+  return ret;
+}
+
+function TaskManagerMock() {
+  this.calledFunctions = [];
+}
+
+TaskManagerMock.prototype.startNewTask = function(description) {
+  return this.functionCalled('startNewTask', [description]);
+};
+
+TaskManagerMock.prototype.stopCurrentTask = function(comment) {
+  if (comment) {
+    return this.functionCalled('stopCurrentTask', [comment]);
+  } else {
+    return this.functionCalled('stopCurrentTask', []);
+  }
+};
+
+TaskManagerMock.prototype.pause = function() {
+  return this.functionCalled('pause', []);
+};
+
+TaskManagerMock.prototype.resume = function() {
+  return this.functionCalled('resume', []);
+};
+
+TaskManagerMock.prototype.stopAllTasks = function() {
+  return this.functionCalled('stopAllTasks', []);
+};
+
+TaskManagerMock.prototype.print = function(day) {
+  return this.functionCalled('print', [day]);
+};
+
+TaskManagerMock.prototype.exportTasks = function(day, exporterName) {
+  return this.functionCalled('exportTasks', [day, exporterName]);
+};
+
+TaskManagerMock.prototype.mergeTasks = function(day) {
+  return this.functionCalled('mergeTasks', [day]);
+};
+
+TaskManagerMock.prototype.reset = function() {
+  this.calledFunctions = [];
+};
+
+TaskManagerMock.prototype.functionCalled = function(functionName, params) {
+  this.calledFunctions.push({
+    functionName: functionName,
+    params: params
+  });
+
+  return q.defer().promise;
+};
+
+TaskManagerMock.prototype.noMoreCalls = function() {
+  return this.calledFunctions.length === 0;
+};
+
+TaskManagerMock.prototype.wasCalled = function(functionName, params) {
+  if (this.noMoreCalls()) {
+    return false;
+  }
+
+  var first = this.calledFunctions[0];
+  this.calledFunctions.splice(0, 1);
+
+  if (first.functionName !== functionName) {
+    console.log('Expected functionName to be ' + first.functionName + ' but was ' + functionName);
+
+    return false;
+  }
+
+  return compareArrays(params, first.params);
+};
 
 describe('test command-parser', function() {
   var taskManager = new TaskManagerMock();
@@ -63,115 +170,4 @@ describe('test command-parser', function() {
     expect(taskManager.wasCalled('exportTasks', ['2015-01-01', 'someexporter'])).toBeTruthy();
     expect(taskManager.noMoreCalls()).toBeTruthy();
   });
-
-  it('should call merge command', function() {
-    commandParser.execute('merge 2015-01-01');
-
-    expect(taskManager.wasCalled('mergeTasks', ['2015-01-01'])).toBeTruthy();
-    expect(taskManager.noMoreCalls()).toBeTruthy();
-  });
 });
-
-function TaskManagerMock() {
-  this.calledFunctions = [];
-}
-
-TaskManagerMock.prototype.startNewTask = function(description) {
-  this.functionCalled('startNewTask', [description]);
-};
-
-TaskManagerMock.prototype.stopCurrentTask = function(comment) {
-  if (comment) {
-    this.functionCalled('stopCurrentTask', [comment]);
-  } else {
-    this.functionCalled('stopCurrentTask', []);
-  }
-};
-
-TaskManagerMock.prototype.pause = function() {
-  this.functionCalled('pause', []);
-};
-
-TaskManagerMock.prototype.resume = function() {
-  this.functionCalled('resume', []);
-};
-
-TaskManagerMock.prototype.stopAllTasks = function() {
-  this.functionCalled('stopAllTasks', []);
-};
-
-TaskManagerMock.prototype.print = function(day) {
-  this.functionCalled('print', [day]);
-};
-
-TaskManagerMock.prototype.exportTasks = function(day, exporterName) {
-  this.functionCalled('exportTasks', [day, exporterName]);
-};
-
-TaskManagerMock.prototype.mergeTasks = function(day) {
-  this.functionCalled('mergeTasks', [day]);
-};
-
-TaskManagerMock.prototype.reset = function() {
-  this.calledFunctions = [];
-};
-
-TaskManagerMock.prototype.functionCalled = function(functionName, params) {
-  this.calledFunctions.push({
-    functionName: functionName,
-    params: params
-  });
-};
-
-TaskManagerMock.prototype.noMoreCalls = function() {
-  return this.calledFunctions.length === 0;
-};
-
-TaskManagerMock.prototype.wasCalled = function(functionName, params) {
-  if (this.noMoreCalls()) {
-    return false;
-  }
-
-  var first = this.calledFunctions[0];
-  this.calledFunctions.splice(0, 1);
-
-  if (first.functionName !== functionName) {
-    console.log('Expected functionName to be ' + first.functionName + ' but was ' + functionName);
-
-    return false;
-  }
-
-  return compareArrays(params, first.params);
-};
-
-function compareArrays(arr1, arr2) {
-  if (!arr1) {
-    arr1 = [];
-  }
-
-  if (!arr2) {
-    arr2 = [];
-  }
-
-  var ret = true;
-
-  if (arr1.length === arr2.length) {
-    for (var index in arr1) {
-      if (arr1[index] !== arr2[index]) {
-        ret = false;
-        break;
-      }
-    }
-  } else {
-    ret = false;
-  }
-
-  if (!ret) {
-    console.log('expected params ');
-    console.log(arr1);
-    console.log('but were');
-    console.log(arr2);
-  }
-
-  return ret;
-}
