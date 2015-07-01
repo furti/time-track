@@ -16,6 +16,8 @@
  * limitations under the License.
  */
 
+"use strict";
+
 var cP = require('./lib/command-parser'),
   tm = require('./lib/task-manager'),
   uI = require('./lib/user-input');
