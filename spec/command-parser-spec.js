@@ -170,4 +170,11 @@ describe('test command-parser', function() {
     expect(taskManager.wasCalled('exportTasks', ['2015-01-01', 'someexporter'])).toBeTruthy();
     expect(taskManager.noMoreCalls()).toBeTruthy();
   });
+
+  it('should call merge command', function() {
+    commandParser.execute('merge 2015-01-01');
+
+    expect(taskManager.wasCalled('mergeTasks', ['2015-01-01'])).toBeTruthy();
+    expect(taskManager.noMoreCalls()).toBeTruthy();
+  });
 });
