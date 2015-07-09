@@ -45,6 +45,8 @@ prompt: Command (? for help):
 
 Every time you enter a command it will be executed and you will be prompted for the next command.
 
+***Hint*** You can use the keyword today everywhere a date could be entered.
+
 ## Available commands
 ### start <task description>
 Starts a new task with the given description. You can call the command multiple times. Each time you call the command the previous task will be paused and a new one will be started. After you stop the actual running task the previous one is started again.

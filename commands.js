@@ -64,8 +64,8 @@ commands.push({
 commands.push({
   schema: 'print <yyyy-mm-dd>',
   description: 'Prints all tasks for the given day.',
-  matcher: /^print .{10}$/,
-  paramRegex: /^print (.{10})$/,
+  matcher: /^print (.{10}|today)$/,
+  paramRegex: /^print (.{10}|today)$/,
   f: 'print'
 });
 
@@ -73,8 +73,8 @@ commands.push({
 commands.push({
   schema: 'export <yyyy-mm-dd> <exporter name>',
   description: 'Export the given day with the specified exporter.',
-  matcher: /^export .{10} .*$/,
-  paramRegex: /^export (.{10}) (.*)$/,
+  matcher: /^export (.{10}|today) .*$/,
+  paramRegex: /^export (.{10}|today) (.*)$/,
   f: 'exportTasks'
 });
 
@@ -82,8 +82,8 @@ commands.push({
 commands.push({
   schema: 'merge <yyyy-mm-dd>',
   description: 'Merge tasks of a given day. If you started a task multiple time you can merge them together.',
-  matcher: /^merge .{10}$/,
-  paramRegex: /^merge (.{10})$/,
+  matcher: /^merge (.{10}|today)$/,
+  paramRegex: /^merge (.{10}|today)$/,
   f: 'mergeTasks'
 });
 
