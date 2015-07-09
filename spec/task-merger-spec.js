@@ -32,7 +32,7 @@ describe('test task-merger', function() {
       }]
     }];
 
-    var taskMerger = new TaskMerger(tasks);
+    var taskMerger = new TaskMerger({tasks: tasks});
     taskMerger.doMerge(1, 2);
 
     expect(tasks.length).toBe(1);
@@ -59,7 +59,7 @@ describe('test task-merger', function() {
       }]
     }];
 
-    var taskMerger = new TaskMerger(tasks);
+    var taskMerger = new TaskMerger({tasks: tasks});
     taskMerger.doMerge(1, 2);
 
     expect(tasks.length).toBe(1);
@@ -87,7 +87,7 @@ describe('test task-merger', function() {
       }]
     }];
 
-    var taskMerger = new TaskMerger(tasks);
+    var taskMerger = new TaskMerger({tasks: tasks});
     taskMerger.doMerge(1, 2);
 
     expect(tasks.length).toBe(1);
@@ -124,7 +124,7 @@ describe('test task-merger', function() {
       }]
     }];
 
-    var taskMerger = new TaskMerger(tasks);
+    var taskMerger = new TaskMerger({tasks: tasks});
     taskMerger.doMerge(1, 2);
 
     expect(tasks.length).toBe(1);
@@ -168,7 +168,7 @@ describe('test task-merger', function() {
       times: []
     }];
 
-    var taskMerger = new TaskMerger(tasks);
+    var taskMerger = new TaskMerger({tasks: tasks});
     taskMerger.doMerge(1, 2);
 
     expect(tasks.length).toBe(3);
@@ -214,7 +214,7 @@ describe('test task-merger', function() {
       times: []
     }];
 
-    var taskMerger = new TaskMerger(tasks);
+    var taskMerger = new TaskMerger({tasks: tasks});
     taskMerger.doMerge(4, 2);
 
     expect(tasks.length).toBe(3);
