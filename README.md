@@ -67,6 +67,9 @@ Prints the task for the given day to the console. The `time-track-commandline-ex
 ### export <yyyy-mm-dd> <exporter name>
 Calls the given exporter with the tasks for the given day.
 
+### merge <yyyy-mm-dd>
+Merge tasks of a given day. If you started a task multiple time you can merge them together.
+
 ### q
 Quits the application. In contrast with the stopall command the quit command does not alter any tasks.
 
